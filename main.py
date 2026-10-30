@@ -16,17 +16,19 @@ def make_building(building_prefix: str, x: int, y: int):
 
 def init_map(play_map: str):
     for i, char in enumerate(play_map):
-        if char == "[":
-            make_building(play_map[i+1], i+1, 0)
+        if char == "x":
+            new_orefactory = OreFactory("OreFactory", len(buildings), 0)
+            buildings.append(new_orefactory)
         if char == "=":
-            new_conveyor = Conveyor("Conveyor", i, 0, "=")
+            new_conveyor = Conveyor("Conveyor", len(buildings), 0, "=")
             buildings.append(new_conveyor)
         if char == ">":
-            new_conveyor = Conveyor("Conveyor", i, 0, ">")
+            new_conveyor = Conveyor("Conveyor", len(buildings), 0, ">")
             buildings.append(new_conveyor)
     
     for building in buildings:
-        building.after_init(buildings)
+        if isinstance(building, OreFactory):
+            building.after_init(buildings)
             
     print(buildings)
 

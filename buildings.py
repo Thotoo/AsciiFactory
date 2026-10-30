@@ -37,7 +37,7 @@ class OreFactory(Building):
         super().after_init(buildings)
         neighbor = buildings[self.x + 1]
         if isinstance(neighbor, Conveyor):
-            print(f"Connected OreFactory to {neighbor}")
+            print(f"Connected {self} to {neighbor}")
             neighbor.input = self
             self.output = neighbor
             neighbor.after_init(buildings)
@@ -62,11 +62,16 @@ class Conveyor(Building):
         self.item: str | None = None
 
     def after_init(self, buildings) -> None:
+
+        if (self.x + 1) >= len(buildings):
+            return
+        
         neighbor = buildings[self.x + 1]
         if isinstance(neighbor, Conveyor):
             print(f"Connected {self} to {neighbor}")
             neighbor.input = self
             self.output = neighbor
+            neighbor.after_init(buildings)
 
     @override
     def get_prefix(self) -> str:

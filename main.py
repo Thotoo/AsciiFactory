@@ -39,14 +39,17 @@ def recreate_map() -> str:
         map_string += building.get_prefix()
     return map_string
 
+
 init_map(player_input)
+
 
 while True:
     tick += 1
     for building in buildings:
+        time.sleep(0.2)
         building.update(tick)
-    print(recreate_map())
-    time.sleep(0.5)
+        print(recreate_map())
+    
 
 
 

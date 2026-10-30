@@ -6,6 +6,7 @@ class Building:
         self.name = name
         self.x = x
         self.y = y
+        self.item: str | None = ""
         if prefix:
             self.prefix = prefix
 
@@ -81,4 +82,11 @@ class Conveyor(Building):
     
     @override
     def update(self, tick):
-        pass
+        if not self.item or not self.output:
+            return
+
+        if self.output.item:
+            return
+
+        self.output.item = "."
+        self.item = None
